@@ -6,7 +6,7 @@
 /*   By: jpiensal <jpiensal@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:00:19 by jpiensal          #+#    #+#             */
-/*   Updated: 2024/11/20 14:11:09 by jpiensal         ###   ########.fr       */
+/*   Updated: 2024/12/02 18:41:00 by jpiensal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,48 +28,45 @@ static int	check_next(char c)
 
 static int	read_specifier(va_list ap, char c)
 {
-	int	count;
-
-	count = 0;
 	if (c == 'c')
-		count += ft_putchar_n(va_arg(ap, int));
+		return (ft_putchar_n(va_arg(ap, int)));
 	else if (c == 's')
-		count += ft_putstr_n(va_arg(ap, char *));
+		return (ft_putstr_n(va_arg(ap, char *)));
 	else if (c == 'p')
-	{
-		count += ft_putstr_n("0x");
-		count += ft_putptr_n(va_arg(ap, void *));
-	}
+		return (ft_printptr_n(va_arg(ap, void *)));
 	else if (c == 'd' || c == 'i')
-		count += ft_putnbr_base_n(va_arg(ap, int), NUMS_LOW, 10);
+		return (ft_printnbr_n(va_arg(ap, int)));
 	else if (c == 'u')
-		count += ft_putnbr_base_n(va_arg(ap, unsigned int), NUMS_LOW, 10);
+		return (ft_printnbr_n(va_arg(ap, unsigned int)));
 	else if (c == 'x')
-		count += ft_putnbr_base_n(va_arg(ap, unsigned int), NUMS_LOW, 16);
+		return (ft_printhex_n(va_arg(ap, unsigned int), 39));
 	else if (c == 'X')
-		count += ft_putnbr_base_n(va_arg(ap, unsigned int), NUMS_UP, 16);
+		return (ft_printhex_n(va_arg(ap, unsigned int), 7));
 	else if (c == '%')
-		count += ft_putchar_n('%');
-	return (count);
+		return (ft_putchar_n('%'));
 }
 
 int	ft_printf(const char *fmt, ...)
 {
 	va_list	ap;
 	int		count;
+	int		check;
 
 	if (!fmt)
-		return (0);
+		return (-1);
 	count = 0;
 	va_start(ap, fmt);
 	while (*fmt)
 	{
 		if (*fmt == '%' && check_next(*(fmt + 1)))
-			count += read_specifier(ap, *(++fmt));
+			check = read_specifier(ap, *(++fmt));
 		else if (*fmt == '%' && !(check_next(*(fmt + 1))))
-			return (-1);
+			check = -1;
 		else
-			count += write(1, &(*fmt), 1);
+			check = write(1, &(*fmt), 1);
+		if (check == -1)
+			return (-1);
+		count += check;
 		fmt++;
 	}
 	va_end(ap);

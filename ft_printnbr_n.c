@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_n.c                                      :+:      :+:    :+:   */
+/*   ft_printnbr_n.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpiensal <jpiensal@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 14:21:32 by jpiensal          #+#    #+#             */
-/*   Updated: 2024/12/02 18:46:55 by jpiensal         ###   ########.fr       */
+/*   Created: 2024/11/29 13:03:52 by jpiensal          #+#    #+#             */
+/*   Updated: 2024/11/29 13:04:46 by jpiensal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putstr_n(const char *s)
+int	ft_printnbr_n(long nbr)
 {
-	int	count;
+	int		count;
+	char	*str;
 
-	if (s == NULL)
-		s = "(null)";
-	count = write(1, s, ft_strlen(s));
+	count = 0;
+	str = ft_ltoa(nbr);
+	count = ft_putstr_n(str);
+	free(str);
 	return (count);
 }

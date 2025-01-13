@@ -24,17 +24,17 @@ OBJS = $(SRCS:.c=.o)
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
-				@ar -rcs $(NAME) $^
+		@ar -rcs $(NAME) $^
 
 %.o: %.c
-				$(CC) -c $< $(CFLAGS)
+		$(CC) -c $< $(CFLAGS)
 
 clean:
-				@rm -f $(OBJS)
+		@rm -f $(OBJS)
 
 fclean:
-				@rm -f $(OBJS) $(NAME)
+		@rm -f $(OBJS) $(NAME)
 
-re:			fclean all
+re:		fclean all
 
 .PHONY: all clean fclean re

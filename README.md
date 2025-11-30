@@ -7,3 +7,4 @@ Simple print function that handles the following arguments:
 - %X, for 0X hex values
 - %i, for signed intergers
 - %u, for unsigned intergers
+- %p, for pointers

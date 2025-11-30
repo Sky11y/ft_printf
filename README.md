@@ -3,8 +3,7 @@
 Simple print function that handles the following arguments:
 - %s, for string
 - %c, for character,
-- %x, for 0x hex values
-- %X, for 0X hex values
-- %i, for signed intergers
+- %x and %X, for 0x and 0X hex values
+- %i and %d, for signed intergers
 - %u, for unsigned intergers
 - %p, for pointers
